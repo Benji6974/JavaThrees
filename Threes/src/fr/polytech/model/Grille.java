@@ -3,7 +3,7 @@ package fr.polytech.model;
 import java.util.ArrayList;
 
 public class Grille {
-	private ArrayList<Tuille> grille;
+	private ArrayList<Tuile> grille;
 	private int taille_x = 4;
 	private int taille_y = 4;
 	
@@ -11,14 +11,14 @@ public class Grille {
 	/**
 	 * @return the grille
 	 */
-	public ArrayList<Tuille> getGrille() {
+	public ArrayList<Tuile> getGrille() {
 		return grille;
 	}
 
 	/**
 	 * @param grille the grille to set
 	 */
-	public void setGrille(ArrayList<Tuille> grille) {
+	public void setGrille(ArrayList<Tuile> grille) {
 		this.grille = grille;
 	}
 
@@ -51,19 +51,19 @@ public class Grille {
 	}
 
 	public Grille(){
-		grille = new ArrayList<Tuille>();
+		grille = new ArrayList<Tuile>();
 	}
 	
 	public void generation(){
 		int nb_spawn = taille_x*taille_y - (taille_x+ taille_y);
 		for (int i = 0; i<taille_x*taille_y; i++){
-			grille.add(new Tuille());
+			grille.add(new Tuile());
 		}
 	}
 	
 	public void affichagetemporaire(){
 		int i = 0;
-		for(Tuille t : grille){
+		for(Tuile t : grille){
 			
 			if (i%taille_x == 0){
 				System.out.println(" ");
