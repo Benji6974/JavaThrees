@@ -55,4 +55,29 @@ public class Tuile {
 		this.nbAdditions = valeur;
 	}
 	
+	/*retourne FAUX si mouvement impossible à la position x, y
+	 * sinon, déplace la tuile, met à jour la valeur.*/
+	public boolean deplacer(Grille g, int x, int y){
+		/*si on est sur un bord*/
+		if((x < 0 || x >= g.getTaille_x()) || (y < 0 || y >= g.getTaille_y())){
+			return false;
+		}
+		for(Tuile t : g.getGrille()){
+			/*s'il y a déjà une tuile à cette position x,y*/
+			if((t.pos_x == x) && (t.pos_y == y)){
+				setPos_x(x);
+				setPos_y(y);
+				/*si les valeurs des tuiles sont identiques, on les additionne,
+				 * puis on supprime l'ancienne de l'arraylist de la grille*/
+				if(t.valeur == this.valeur){
+					this.valeur += this.valeur;
+					g.getGrille().remove(t);
+				}else{
+					return false;
+				}
+				return true;
+			}
+		}
+		return true;		
+	}	
 }
