@@ -1,5 +1,7 @@
 package fr.polytech.model;
 
+import java.util.ArrayList;
+
 public class Tuile {
 	private int valeur;
 	private int pos_x;
@@ -33,6 +35,17 @@ public class Tuile {
 	public Tuile(){
 		this.setValeur(0);
 	}
+	public Tuile(int x, int y){
+		this.setValeur(0);
+		this.setPos_x(x);
+		this.setPos_y(y);
+	}
+	
+	public Tuile(int val,int x, int y){
+		this.setValeur(val);
+		this.setPos_x(x);
+		this.setPos_y(y);
+	}
 	/**
 	 * @return the valeur
 	 */
@@ -55,29 +68,46 @@ public class Tuile {
 		this.nbAdditions = valeur;
 	}
 	
-	/*retourne FAUX si mouvement impossible à la position x, y
-	 * sinon, déplace la tuile, met à jour la valeur.*/
 	public boolean deplacer(Grille g, int x, int y){
 		/*si on est sur un bord*/
-		if((x < 0 || x >= g.getTaille_x()) || (y < 0 || y >= g.getTaille_y())){
+		if((x <= 0 || x > g.getTaille_x()) || (y <= 0 || y > g.getTaille_y())){
 			return false;
 		}
+		boolean trouve = false;
 		for(Tuile t : g.getGrille()){
+			trouve = false;
 			/*s'il y a déjà une tuile à cette position x,y*/
-			if((t.pos_x == x) && (t.pos_y == y)){
-				setPos_x(x);
-				setPos_y(y);
+	
+			System.out.println(" posx "+t.getPos_x()+" xdonne"+x+" posy "+t.getPos_y()+" ydonne "+ y);
+			if((t.getPos_x() == x) && (t.getPos_y() == y)){
+				trouve = true;
+				//setPos_x(x);
+				//setPos_y(y);
 				/*si les valeurs des tuiles sont identiques, on les additionne,
 				 * puis on supprime l'ancienne de l'arraylist de la grille*/
-				if(t.valeur == this.valeur){
-					this.valeur += this.valeur;
-					g.getGrille().remove(t);
+				System.out.println("hello");
+				if (t.valeur == 0 || (t.valeur == 2 && this.valeur == 1) || (this.valeur == 2 && t.valeur == 1 ) || t.valeur == this.valeur){
+					t.valeur += this.valeur;
+					this.valeur = 0;
+					System.out.println("coucou");
+					return true;
+					
 				}else{
 					return false;
 				}
-				return true;
+				
 			}
 		}
+		
 		return true;		
-	}	
+	}
+	@Override
+	public String toString() {
+		return "Tuile [valeur=" + valeur + ", pos_x=" + pos_x + ", pos_y=" + pos_y + "]";
+	}
+	
+
+	
+	
+
 }

@@ -1,0 +1,5 @@
+package fr.polytech.model;
+
+public class Deplacement {
+
+}

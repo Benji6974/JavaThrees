@@ -1,0 +1,143 @@
+package fr.polytech.model;
+
+import java.util.ArrayList;
+
+
+
+public class Grille {
+	private ArrayList<Tuile> grille;
+	private int taille_x = 4;
+	private int taille_y = 4;
+	
+	
+	/**
+	 * @return the grille
+	 */
+	public ArrayList<Tuile> getGrille() {
+		return grille;
+	}
+
+	/**
+	 * @param grille the grille to set
+	 */
+	public void setGrille(ArrayList<Tuile> grille) {
+		this.grille = grille;
+	}
+
+	/**
+	 * @return the taille_x
+	 */
+	public int getTaille_x() {
+		return taille_x;
+	}
+
+	/**
+	 * @param taille_x the taille_x to set
+	 */
+	public void setTaille_x(int taille_x) {
+		this.taille_x = taille_x;
+	}
+
+	/**
+	 * @return the taille_y
+	 */
+	public int getTaille_y() {
+		return taille_y;
+	}
+
+	/**
+	 * @param taille_y the taille_y to set
+	 */
+	public void setTaille_y(int taille_y) {
+		this.taille_y = taille_y;
+	}
+
+	public Grille(){
+		grille = new ArrayList<Tuile>();
+	}
+	
+	public void generation(){
+		int nb_spawn = taille_x*taille_y - (taille_x+ taille_y);
+		int x = 1;
+		int y = 1;
+		for (int i = 0; i<taille_x*taille_y; i++){
+			if (x > this.getTaille_x()){
+				
+			}
+			grille.add(new Tuile(x,y));
+		}
+	}
+	
+	public void deplacement(Deplacement direction) {
+		int x;
+		int y;
+		if (direction == Deplacement.GAUCHE){
+			x = 1;
+			while(x<= getTaille_x()){
+				for (Tuile t: getGrille()){
+					if (t.getPos_x()== x){
+						t.deplacer(this, t.getPos_x()-1, t.getPos_y());
+					}
+				}
+				x++;
+			}
+		}
+		if (direction == Deplacement.DROIT){
+			x = getTaille_x();
+			while(x>= 1){
+				for (Tuile t: getGrille()){
+					if (t.getPos_x()== x){
+						
+					}
+				}
+				x--;
+			}
+		}
+		if (direction == Deplacement.HAUT){
+			y = getTaille_y();
+			while(y>= 1){
+				for (Tuile t: getGrille()){
+					if (t.getPos_y()== y){
+						
+					}
+				}
+				y--;
+			}
+		}
+		if (direction == Deplacement.BAS){
+			y = 1;
+			while(y<= getTaille_y()){
+				for (Tuile t: getGrille()){
+					if (t.getPos_y()== y){
+						
+					}
+				}
+				y++;
+			}
+		}
+	}
+	void deplacement_gauche(){
+		deplacement(Deplacement.GAUCHE);
+	}
+	void deplacement_droit(){
+		deplacement(Deplacement.DROIT);
+	}
+	void deplacement_haut(){
+		deplacement(Deplacement.HAUT);
+	}
+	void deplacement_bas(){
+		deplacement(Deplacement.BAS);
+	}
+	
+	public void affichagetemporaire(){
+		int i = 0;
+		for(Tuile t : grille){
+			
+			if (i%taille_x == 0){
+				System.out.println(" ");
+			}
+			System.out.print(t.getValeur()+" ");
+			i++;
+	}
+	}
+}
