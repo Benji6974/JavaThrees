@@ -88,13 +88,14 @@ public class Grille {
 		for (int i = 0; i<taille_x*taille_y; i++){
 			if (x > this.getTaille_x()){
 				x =1;
+				y++;
 			}
 			if (y > this.getTaille_y()){
 				y =1;
 			}
 			grille.add(new Tuile(x,y));
 			x++;
-			y++;
+			
 		}
 		ajout_val();
 	}
@@ -153,18 +154,119 @@ public class Grille {
 	}
 	
 	private boolean ajouteval(Deplacement direction) {
+		Random rand = new Random();
+		boolean res = false;
+		int nombreAleatoirex = rand.nextInt(3 - 1 + 1) + 1;
+		if (direction == Deplacement.GAUCHE){
+			if(possible_ajoute(1,1)){
+				while(!res){
+					int posAleatoirey = rand.nextInt(this.getTaille_y() - 1 + 1) + 1;
+					for(Tuile t: grille){
+						if (t.getPos_x() == this.getTaille_x() && t.getPos_y() == posAleatoirey){
+							if(t.getValeur()== 0){
+								res = true;
+								t.setValeur(nombreAleatoirex);
+							}
+						}
+					}
+				}
+			}
+		}
+		if (direction == Deplacement.DROIT){
+			if(possible_ajoute(1,this.getTaille_x())){
+				while(!res){
+					int posAleatoirey = rand.nextInt(this.getTaille_y() - 1 + 1) + 1;
+					for(Tuile t: grille){
+						if (t.getPos_x() == 1 && t.getPos_y() == posAleatoirey){
+							if(t.getValeur()== 0){
+								res = true;
+								t.setValeur(nombreAleatoirex);
+							}
+						}
+					}
+				}
+			}
+		}
+		if (direction == Deplacement.HAUT){
+			if(possible_ajoute(0,1)){
+				while(!res){
+					int posAleatoirex = rand.nextInt(this.getTaille_x() - 1 + 1) + 1;
+					for(Tuile t: grille){
+						if (t.getPos_y() == 1 && t.getPos_x() == posAleatoirex){
+							if(t.getValeur()== 0){
+								res = true;
+								t.setValeur(nombreAleatoirex);
+							}
+						}
+					}
+				}
+			}
+		}
+		if (direction == Deplacement.BAS){
+			if(possible_ajoute(0,this.getTaille_y())){
+				while(!res){
+					int posAleatoirex = rand.nextInt(this.getTaille_x() - 1 + 1) + 1;
+					for(Tuile t: grille){
+						if (t.getPos_y() == this.getTaille_y() && t.getPos_x() == posAleatoirex){
+							if(t.getValeur()== 0){
+								res = true;
+								t.setValeur(nombreAleatoirex);
+							}
+						}
+					}
+				}
+			}
+			
+		}
 		return false;
 		
 	}
 	
-	void deplacement_gauche(){
+	public boolean possible_ajoute(int type, int val){
+		
+		for(Tuile t:grille){
+			if(type == 1){
+				if (t.getPos_x()==val) // c'est une colonne
+				{
+					if(t.getValeur() == 0){
+						return true;
+					}
+				}
+				
+			}else
+			{
+				if (t.getPos_y()==val)// c'est une ligne
+				{
+					if(t.getValeur() == 0){
+						return true;
+					}
+				}
+			}
+			
+		}
+		return false;
+		
+		
+	}
+	
+	public boolean test_possible_mouvement(){
+		for(Tuile t: grille){
+			if (t.is_possible_mouve(this)){
+				return true;
+			}
+		}
+		return false;
+		
+	}
+	
+	public void deplacement_gauche(){
 		boolean res = deplacement(Deplacement.GAUCHE);
 		if (res){
 			boolean res2 = ajouteval(Deplacement.GAUCHE);
 			
 		}
 	}
-	void deplacement_droit(){
+	public void deplacement_droit(){
 		boolean res = deplacement(Deplacement.DROIT);
 		if (res){
 			boolean res2 = ajouteval(Deplacement.DROIT);

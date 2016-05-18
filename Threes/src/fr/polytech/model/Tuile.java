@@ -78,18 +78,16 @@ public class Tuile {
 			trouve = false;
 			/*s'il y a déjà une tuile à cette position x,y*/
 	
-			System.out.println(" posx "+t.getPos_x()+" xdonne"+x+" posy "+t.getPos_y()+" ydonne "+ y);
+			//System.out.println(" posx "+t.getPos_x()+" xdonne"+x+" posy "+t.getPos_y()+" ydonne "+ y);
 			if((t.getPos_x() == x) && (t.getPos_y() == y)){
 				trouve = true;
-				//setPos_x(x);
-				//setPos_y(y);
 				/*si les valeurs des tuiles sont identiques, on les additionne,
 				 * puis on supprime l'ancienne de l'arraylist de la grille*/
-				System.out.println("hello");
+				//System.out.println("hello");
 				if (t.valeur == 0 || (t.valeur == 2 && this.valeur == 1) || (this.valeur == 2 && t.valeur == 1 ) || t.valeur == this.valeur){
 					t.valeur += this.valeur;
 					this.valeur = 0;
-					System.out.println("coucou");
+					//System.out.println("coucou");
 					return true;
 					
 				}else{
@@ -100,6 +98,41 @@ public class Tuile {
 		}
 		
 		return true;		
+	}
+	
+	public boolean is_possible_mouve(Grille g){
+		
+		int x = this.getPos_x();
+		int y = this.getPos_y();
+		
+		for (Tuile t: g.getGrille()){
+			// test de case du haut
+			if (t.pos_x == x 
+				&& t.pos_y == y+1 
+				&& ((t.valeur == this.valeur &&( t.valeur != 1 || t.valeur != 2))
+				|| (t.valeur ==1 && this.valeur == 2)
+				|| (t.valeur == 2 && this.valeur == 1))){return true;}
+			// test de case du bas
+			if (t.pos_x == x 
+				&& t.pos_y == y-1 
+				&& ((t.valeur == this.valeur &&( t.valeur != 1 || t.valeur != 2))
+				|| (t.valeur ==1 && this.valeur == 2)
+				|| (t.valeur == 2 && this.valeur == 1))){return true;}
+			// test de case du gauche
+			if (t.pos_x == x-1 
+				&& t.pos_y == y 
+				&& ((t.valeur == this.valeur &&( t.valeur != 1 || t.valeur != 2))
+				|| (t.valeur ==1 && this.valeur == 2)
+				|| (t.valeur == 2 && this.valeur == 1))){return true;}
+			// test de case du haut
+			if (t.pos_x == x+1
+				&& t.pos_y == y 
+				&& ((t.valeur == this.valeur &&( t.valeur != 1 || t.valeur != 2))
+				|| (t.valeur ==1 && this.valeur == 2)
+				|| (t.valeur == 2 && this.valeur == 1))){return true;}
+		}
+		return false;
+		
 	}
 	@Override
 	public String toString() {
