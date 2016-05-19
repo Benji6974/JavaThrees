@@ -1,8 +1,10 @@
 package fr.polytech.model;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Tuile {
+public class Tuile extends Observable {
 	private int valeur;
 	private int pos_x;
 	private int pos_y;
@@ -88,6 +90,8 @@ public class Tuile {
 					t.valeur += this.valeur;
 					this.valeur = 0;
 					//System.out.println("coucou");
+					setChanged();
+					notifyObservers(); // ont notifie la vue
 					return true;
 					
 				}else{
@@ -138,6 +142,7 @@ public class Tuile {
 	public String toString() {
 		return "Tuile [valeur=" + valeur + ", pos_x=" + pos_x + ", pos_y=" + pos_y + "]";
 	}
+	
 	
 
 	

@@ -55,6 +55,7 @@ public class Grille {
 
 	public Grille(){
 		grille = new ArrayList<Tuile>();
+		this.generation();
 	}
 	
 	public void ajout_val(){
@@ -273,14 +274,14 @@ public class Grille {
 			
 		}
 	}
-	void deplacement_haut(){
+	public void deplacement_haut(){
 		boolean res = deplacement(Deplacement.HAUT);
 		if (res){
 			boolean res2 = ajouteval(Deplacement.HAUT);
 			
 		}
 	}
-	void deplacement_bas(){
+	public void deplacement_bas(){
 		boolean res = deplacement(Deplacement.BAS);
 		if (res){
 			boolean res2 = ajouteval(Deplacement.BAS);

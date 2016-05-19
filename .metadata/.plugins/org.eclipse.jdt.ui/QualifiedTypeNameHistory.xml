@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="fr.polytech.vue.ThreesVue"/>
+<fullyQualifiedTypeName name="fr.polytech.controler.ThreesControler"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="fr.polytech.model.Grille"/>
+<fullyQualifiedTypeName name="fr.polytech.model.Tuile"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="java.util.Observer"/>
+</qualifiedTypeNameHistroy>

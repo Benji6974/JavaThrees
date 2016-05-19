@@ -53,12 +53,9 @@ public class ThreesModel {
 			g1.affichagetemporaire();
 		}
 		System.out.println("perdu");
-		
 	}
 	
 	public static void main (String[] args){
 		ThreesModel tm = new ThreesModel();
-		
-		
 	}
 }

@@ -31,7 +31,23 @@ public class ThreesControler implements KeyListener{
 	}
 	
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+		System.out.println("Touche relâchée : " + arg0.getKeyCode() +
+                " (" + arg0.getKeyChar() + ")");
+		int keyCode = arg0.getKeyCode();
+	    switch( keyCode ) { 
+	        case KeyEvent.VK_UP:
+	        	g1.deplacement_haut();
+	            break;
+	        case KeyEvent.VK_DOWN:
+	        	g1.deplacement_bas();
+	            break;
+	        case KeyEvent.VK_LEFT:
+	        	g1.deplacement_gauche();
+	            break;
+	        case KeyEvent.VK_RIGHT :
+	        	g1.deplacement_droit();
+	            break;
+	     }
 		
 	}
 
