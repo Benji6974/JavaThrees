@@ -1,0 +1,128 @@
+package fr.polytech.controler;
+
+import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import fr.polytech.model.Grille;
+import fr.polytech.vue.ThreesVue;
+
+
+
+
+
+public class ThreesControler implements KeyListener,MouseListener{
+	
+	private ThreesVue w1;
+	private Grille g1;
+	private boolean clic;
+	private Point position;
+	public ThreesControler(Grille p_g1, ThreesVue p_w1) {
+		// TODO Auto-generated constructor stub
+		this.w1 = p_w1;
+		this.g1 = p_g1;
+		
+		
+	}
+	
+
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void keyReleased(KeyEvent arg0) {
+		System.out.println("Touche relâchée : " + arg0.getKeyCode() +
+                " (" + arg0.getKeyChar() + ")");
+		int keyCode = arg0.getKeyCode();
+	    switch( keyCode ) { 
+	        case KeyEvent.VK_UP:
+	        	g1.deplacement_haut();
+	        	g1.affichagetemporaire();
+	            break;
+	        case KeyEvent.VK_DOWN:
+	        	g1.deplacement_bas();
+	        	g1.affichagetemporaire();
+	            break;
+	        case KeyEvent.VK_LEFT:
+	        	g1.deplacement_gauche();
+	        	g1.affichagetemporaire();
+	            break;
+	        case KeyEvent.VK_RIGHT :
+	        	g1.deplacement_droit();
+	        	g1.affichagetemporaire();
+	            break;
+	     }
+		
+	}
+
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void mouseEntered(MouseEvent e) {
+		position = e.getPoint();
+		System.out.println(position);
+		clic = true;
+		
+	}
+
+
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void mousePressed(MouseEvent e) {
+		
+		
+	}
+
+
+	public void mouseReleased(MouseEvent e) {
+		if (clic){
+			int deplace_x = (int) (e.getPoint().getX()-position.getX());
+			int deplace_y = (int) (e.getPoint().getY()-position.getY());
+			System.out.println("deplacement x = "+deplace_x+" deplace y = "+deplace_y);
+			if (Math.abs(deplace_x) > Math.abs(deplace_y)){
+				if (deplace_x>0){
+					
+					g1.deplacement_droit();
+					System.out.println("droit");
+		        	g1.affichagetemporaire();
+				}else{
+					
+					g1.deplacement_gauche();
+					System.out.println("gauche");
+		        	g1.affichagetemporaire();
+				}
+			}else{
+				if (deplace_y>0){
+					
+					g1.deplacement_haut();
+					System.out.println("haut");
+		        	g1.affichagetemporaire();
+				}else{
+					
+					g1.deplacement_bas();
+					System.out.println("bas");
+		        	g1.affichagetemporaire();
+				}
+			}
+			
+		}
+		
+	}
+
+}

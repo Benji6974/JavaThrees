@@ -16,11 +16,13 @@ public class ThreesMain {
 		//lancent de la vue
 		ThreesVue f1 = new ThreesVue(g1);
 		f1.setVisible(true);  
-		
+		f1.setFocusable(true);
 		//lancement du controller
 		ThreesControler c1 = new ThreesControler(g1, f1);
-		
-		f1.getP_jeu().addKeyListener(c1);
+		f1.addKeyListener(c1);
+		f1.addMouseListener(c1);
+		f1.getCommencer().addActionListener(c1);
+		f1.getNouveaujeu().addActionListener(c1);
 		
 	}
 }

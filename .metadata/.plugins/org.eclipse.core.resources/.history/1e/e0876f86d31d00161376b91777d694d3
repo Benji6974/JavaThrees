@@ -1,0 +1,81 @@
+package fr.polytech.vue;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import fr.polytech.model.Grille;
+
+import java.awt.GridLayout;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Partiefini extends JDialog {
+
+	private final JPanel contentPanel = new JPanel();
+	private JLabel lblPerdu;
+	private JLabel lblVotreScoreEst;
+	private JLabel lblNewLabel;
+	private JPanel buttonPane;
+	private JButton rejouer;
+	private JButton quitter;
+
+	/**
+	 * Create the dialog.
+	 */
+	public Partiefini(Grille g) {
+		this.setModal(true);
+		setTitle("Perdu !!!");
+		setBounds(100, 100, 309, 208);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		
+		lblNewLabel = new JLabel("Vous avez ...");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(0, 11, 293, 14);
+		contentPanel.add(lblNewLabel);
+		
+		lblPerdu = new JLabel("PERDU");
+		lblPerdu.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPerdu.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		lblPerdu.setBounds(0, 28, 293, 60);
+		contentPanel.add(lblPerdu);
+		
+		lblVotreScoreEst = new JLabel("Votre score est de : "+g.getScore());
+		lblVotreScoreEst.setBounds(10, 99, 273, 26);
+		contentPanel.add(lblVotreScoreEst);
+		
+		buttonPane = new JPanel();
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(buttonPane, BorderLayout.SOUTH);
+		
+		rejouer = new JButton("Rejouer");
+		rejouer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		buttonPane.add(rejouer);
+		getRootPane().setDefaultButton(rejouer);
+	
+	
+		quitter = new JButton("Quitter");
+		quitter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		buttonPane.add(quitter);
+		
+		
+	}
+}

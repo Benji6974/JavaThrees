@@ -1,0 +1,56 @@
+package fr.polytech.vue;
+
+import java.awt.Color;
+import java.awt.Font;
+
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
+import fr.polytech.model.Tuile;
+
+public class TuileGraphique extends JLabel{
+	private Color c;
+	private Tuile t;
+	
+	public Color getC() {
+		return c;
+	}
+	public void setC() {
+		if (t.getValeur() == 1){
+			this.c = new Color(108,197,211);
+			this.setBackground(c);
+		}else if (t.getValeur() == 2){
+			this.c = new Color(232,43,70);
+			this.setBackground(c);
+		}else{
+			this.c = new Color(244,239,193);
+			this.setBackground(c);
+		}
+		
+	}
+	public Tuile getT() {
+		return t;
+	}
+	public void setT(Tuile t) {
+		this.t = t;
+	}
+	
+	public void maj_tuile(Tuile t){
+		this.t = t;
+		setC();
+	}
+	
+	
+	public TuileGraphique(Tuile t){
+		this.t = t;
+		this.setFont(new Font("Tahoma", Font.BOLD, 22));
+		this.setHorizontalAlignment(SwingConstants.CENTER);
+		this.setOpaque(true);
+		this.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+		this.setText(Integer.toString(t.getValeur()));
+		this.setC();
+		this.setForeground(Color.WHITE);
+	}
+	
+
+}

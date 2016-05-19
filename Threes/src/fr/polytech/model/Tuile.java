@@ -86,12 +86,14 @@ public class Tuile extends Observable {
 				/*si les valeurs des tuiles sont identiques, on les additionne,
 				 * puis on supprime l'ancienne de l'arraylist de la grille*/
 				//System.out.println("hello");
-				if (t.valeur == 0 || (t.valeur == 2 && this.valeur == 1) || (this.valeur == 2 && t.valeur == 1 ) || t.valeur == this.valeur){
+				if (t.valeur == 0 || (t.valeur == 2 && this.valeur == 1) || (this.valeur == 2 && t.valeur == 1 ) || ( t.valeur == this.valeur && (t.valeur != 1 && t.valeur !=2))){
+					System.out.println("v1 =" + t.valeur +" v2 = "+ this.valeur);
 					t.valeur += this.valeur;
 					this.valeur = 0;
 					//System.out.println("coucou");
 					setChanged();
 					notifyObservers(); // ont notifie la vue
+					System.out.println(this);
 					return true;
 					
 				}else{
@@ -111,27 +113,28 @@ public class Tuile extends Observable {
 		
 		for (Tuile t: g.getGrille()){
 			// test de case du haut
+			
 			if (t.pos_x == x 
 				&& t.pos_y == y+1 
-				&& ((t.valeur == this.valeur &&( t.valeur != 1 || t.valeur != 2))
+				&& ((t.valeur == this.valeur &&( t.valeur != 1 && t.valeur != 2))
 				|| (t.valeur ==1 && this.valeur == 2)
 				|| (t.valeur == 2 && this.valeur == 1))){return true;}
 			// test de case du bas
 			if (t.pos_x == x 
 				&& t.pos_y == y-1 
-				&& ((t.valeur == this.valeur &&( t.valeur != 1 || t.valeur != 2))
+				&& ((t.valeur == this.valeur &&( t.valeur != 1 && t.valeur != 2))
 				|| (t.valeur ==1 && this.valeur == 2)
 				|| (t.valeur == 2 && this.valeur == 1))){return true;}
 			// test de case du gauche
 			if (t.pos_x == x-1 
 				&& t.pos_y == y 
-				&& ((t.valeur == this.valeur &&( t.valeur != 1 || t.valeur != 2))
+				&& ((t.valeur == this.valeur &&( t.valeur != 1 && t.valeur != 2))
 				|| (t.valeur ==1 && this.valeur == 2)
 				|| (t.valeur == 2 && this.valeur == 1))){return true;}
-			// test de case du haut
+			// test de case du droit
 			if (t.pos_x == x+1
 				&& t.pos_y == y 
-				&& ((t.valeur == this.valeur &&( t.valeur != 1 || t.valeur != 2))
+				&& ((t.valeur == this.valeur &&( t.valeur != 1 && t.valeur != 2))
 				|| (t.valeur ==1 && this.valeur == 2)
 				|| (t.valeur == 2 && this.valeur == 1))){return true;}
 		}

@@ -9,6 +9,7 @@ public class Grille {
 	private ArrayList<Tuile> grille;
 	private int taille_x = 4;
 	private int taille_y = 4;
+	private int score;
 	
 	
 	/**
@@ -56,6 +57,7 @@ public class Grille {
 	public Grille(){
 		grille = new ArrayList<Tuile>();
 		this.generation();
+		this.setScore(0);
 	}
 	
 	public void ajout_val(){
@@ -82,6 +84,16 @@ public class Grille {
 		}
 	}
 	
+	
+	/*Calculer le score sur tout le plateau*/
+    public void score_total(){
+        for(Tuile t : grille){
+            setScore(getScore() + t.getValeur());
+            System.out.println("score " +getScore());
+        }
+    }
+    
+    
 	public void generation(){
 		
 		int x = 1;
@@ -101,9 +113,18 @@ public class Grille {
 		ajout_val();
 	}
 	
+	public void relancerjeu(){
+		for(Tuile t : grille){
+			t.setValeur(0);
+		}
+		ajout_val();
+		this.setScore(0);
+	}
+	
 	public boolean deplacement(Deplacement direction) {
 		int x;
 		int y;
+		int untrucquimarche = 0;
 		boolean res = false;
 		if (direction == Deplacement.GAUCHE){
 			x = 1;
@@ -112,7 +133,9 @@ public class Grille {
 				for (Tuile t: getGrille()){
 					if (t.getPos_x()== x){
 						res = t.deplacer(this, t.getPos_x()-1, t.getPos_y());
-						//System.out.println(res);
+						if (res){
+							untrucquimarche++;
+						}
 					}
 				}
 				x++;
@@ -124,6 +147,9 @@ public class Grille {
 				for (Tuile t: getGrille()){
 					if (t.getPos_x()== x){
 						res = t.deplacer(this, t.getPos_x()+1, t.getPos_y());
+						if (res){
+							untrucquimarche++;
+						}
 					}
 				}
 				x--;
@@ -135,6 +161,9 @@ public class Grille {
 				for (Tuile t: getGrille()){
 					if (t.getPos_y()== y){
 						res = t.deplacer(this, t.getPos_x(), t.getPos_y()+1);
+						if (res){
+							untrucquimarche++;
+						}
 					}
 				}
 				y--;
@@ -146,10 +175,16 @@ public class Grille {
 				for (Tuile t: getGrille()){
 					if (t.getPos_y()== y){
 						res = t.deplacer(this, t.getPos_x(), t.getPos_y()-1);
+						if (res){
+							untrucquimarche++;
+						}
 					}
 				}
 				y++;
 			}
+		}
+		if (untrucquimarche >0){
+			res = true;
 		}
 		return res;
 	}
@@ -159,7 +194,7 @@ public class Grille {
 		boolean res = false;
 		int nombreAleatoirex = rand.nextInt(3 - 1 + 1) + 1;
 		if (direction == Deplacement.GAUCHE){
-			if(possible_ajoute(1,1)){
+			if(possible_ajoute(1,this.getTaille_x())){
 				while(!res){
 					int posAleatoirey = rand.nextInt(this.getTaille_y() - 1 + 1) + 1;
 					for(Tuile t: grille){
@@ -174,7 +209,7 @@ public class Grille {
 			}
 		}
 		if (direction == Deplacement.DROIT){
-			if(possible_ajoute(1,this.getTaille_x())){
+			if(possible_ajoute(1,1)){
 				while(!res){
 					int posAleatoirey = rand.nextInt(this.getTaille_y() - 1 + 1) + 1;
 					for(Tuile t: grille){
@@ -219,7 +254,7 @@ public class Grille {
 			}
 			
 		}
-		return false;
+		return res;
 		
 	}
 	
@@ -227,8 +262,10 @@ public class Grille {
 		
 		for(Tuile t:grille){
 			if(type == 1){
+				System.out.println("je suis "+t);
 				if (t.getPos_x()==val) // c'est une colonne
 				{
+					System.out.println("sur la collone "+val);
 					if(t.getValeur() == 0){
 						return true;
 					}
@@ -238,6 +275,7 @@ public class Grille {
 			{
 				if (t.getPos_y()==val)// c'est une ligne
 				{
+					System.out.println("sur la ligne "+val);
 					if(t.getValeur() == 0){
 						return true;
 					}
@@ -260,15 +298,19 @@ public class Grille {
 		
 	}
 	
+	
 	public void deplacement_gauche(){
 		boolean res = deplacement(Deplacement.GAUCHE);
+		
 		if (res){
 			boolean res2 = ajouteval(Deplacement.GAUCHE);
+			
 			
 		}
 	}
 	public void deplacement_droit(){
 		boolean res = deplacement(Deplacement.DROIT);
+		
 		if (res){
 			boolean res2 = ajouteval(Deplacement.DROIT);
 			
@@ -276,15 +318,19 @@ public class Grille {
 	}
 	public void deplacement_haut(){
 		boolean res = deplacement(Deplacement.HAUT);
+		
 		if (res){
 			boolean res2 = ajouteval(Deplacement.HAUT);
+			
 			
 		}
 	}
 	public void deplacement_bas(){
 		boolean res = deplacement(Deplacement.BAS);
+		
 		if (res){
 			boolean res2 = ajouteval(Deplacement.BAS);
+			
 			
 		}
 	}
@@ -308,6 +354,14 @@ public class Grille {
 			y--;
 		}
 		
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 	
 }

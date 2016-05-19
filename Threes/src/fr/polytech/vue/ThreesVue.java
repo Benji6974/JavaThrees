@@ -3,6 +3,7 @@ package fr.polytech.vue;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -14,6 +15,8 @@ import javax.swing.JMenuItem;
 import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.SwingConstants;
 
@@ -30,10 +33,16 @@ public class ThreesVue extends JFrame implements Observer{
 	private JPanel contentPane;
 	private JPanel p_tuilesuiv;
 	private JPanel p_jeu;
-	private JMenu mnNewMenu;
-	private JMenuItem mntmNouveauJeu;
+	private JMenu menujeu;
+	private JMenuItem nouveaujeu;
 	private JMenuBar menuBar;
+	
+
 	private ArrayList<TuileGraphique> array_tuile;
+	private Grille g;
+	private JButton commencer;
+	private JLabel lblThrees;
+	private JLabel copiright;
 
 
 	public JPanel getP_jeu() {
@@ -44,24 +53,63 @@ public class ThreesVue extends JFrame implements Observer{
 	public void setP_jeu(JPanel p_jeu) {
 		this.p_jeu = p_jeu;
 	}
+	public JMenuItem getNouveaujeu() {
+		return nouveaujeu;
+	}
+
+
+	public void setNouveaujeu(JMenuItem nouveaujeu) {
+		this.nouveaujeu = nouveaujeu;
+	}
 
 
 	/**
 	 * Create the frame.
 	 */
-	public ThreesVue(Grille g) {
+	public ThreesVue(final Grille g) {
+		this.g = g;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 530, 488);
-		
+		setTitle("Threes - Marie Cheng | Daujat Benjamin");
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		mnNewMenu = new JMenu("New menu");
-		menuBar.add(mnNewMenu);
+		menujeu = new JMenu("Jeu");
+		menuBar.add(menujeu);
 		
-		mntmNouveauJeu = new JMenuItem("Nouveau Jeu");
-		mnNewMenu.add(mntmNouveauJeu);
+		nouveaujeu = new JMenuItem("Nouveau Jeu");
+		menujeu.add(nouveaujeu);
+		menujeu.setEnabled(false);
+		getContentPane().setLayout(null);
+		
+		commencer = new JButton("Jouer");
+		commencer.setBounds(160, 185, 208, 62);
+		getContentPane().add(commencer);
+		
+		lblThrees = new JLabel("Threes");
+		lblThrees.setHorizontalAlignment(SwingConstants.CENTER);
+		lblThrees.setFont(new Font("Times New Roman", Font.BOLD, 40));
+		lblThrees.setBounds(43, 24, 413, 70);
+		getContentPane().add(lblThrees);
+		
+		copiright = new JLabel("Marie Cheng | Daujat Benjamin");
+		copiright.setHorizontalAlignment(SwingConstants.CENTER);
+		copiright.setBounds(323, 378, 191, 39);
+		getContentPane().add(copiright);
+		
+	}
+	
+	public void jouer(){
+		this.remove(lblThrees);
+		this.remove(copiright);
+		this.remove(commencer);
+		menujeu.setEnabled(true);
+		init();
+	}
+	
+	public void init(){
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -79,36 +127,71 @@ public class ThreesVue extends JFrame implements Observer{
 		
 		p_jeu = new JPanel();
 		contentPane.add(p_jeu, BorderLayout.CENTER);
-		p_jeu.setLayout(new GridLayout(4, 4, 5, 5));
-		int x = 1;
-		int y = g.getTaille_y();
-		for (TuileGraphique tg: array_tuile){
-			if(x == g.getTaille_x()){
-				y--;
+		p_jeu.setLayout(new GridLayout(g.getTaille_x(), g.getTaille_y(), 5, 5));
+		
+		int x =1, y=g.getTaille_y();
+		for(int z = 1 ; z<= g.getTaille_y();z++){
+			for(TuileGraphique tg: array_tuile){
+				if (x > g.getTaille_x()){
+					x = 1;	
+				}
+				if (x == tg.getT().getPos_x() && y == tg.getT().getPos_y()){
+					p_jeu.add(tg);
+				}
+				x++;
+				
 			}
-			p_jeu.add(tg);
+			System.out.println("");
+			y--;
 		}
 		
 		
-		
 		p_tuilesuiv = new JPanel();
+		
 		contentPane.add(p_tuilesuiv, BorderLayout.NORTH);
 	}
 
-
+	
+	public void miseajour(){
+		for(TuileGraphique tg: array_tuile){
+				tg.maj_tuile();
+			}
+	}
+	
+	public void partie_fini(){
+		Partiefini pf = new Partiefini(g);
+		pf.setVisible(true);
+		pf.setModal(true);
+		
+	}
+	
 	public void update(Observable arg0, Object arg1) {
+		System.out.println("test11111111111111111111");
+		
 		if (arg0 instanceof Tuile)
 		{
+			miseajour();
 			Tuile c1 = (Tuile) arg0;
-			
+			System.out.println("test");
 			for (TuileGraphique tg :array_tuile){
 				if (tg.getT().getPos_x() == c1.getPos_x() && tg.getT().getPos_y() == c1.getPos_y()){
-					tg.maj_tuile(c1);
+					tg.maj_tuile();
+					
 				}
 			}
 			
 		}
+		this.repaint();
 		
 	}
 
+
+	public JButton getCommencer() {
+		return commencer;
+	}
+
+
+	public void setCommencer(JButton commencer) {
+		this.commencer = commencer;
+	}
 }
