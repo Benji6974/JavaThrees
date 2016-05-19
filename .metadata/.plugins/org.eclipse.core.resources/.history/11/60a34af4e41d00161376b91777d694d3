@@ -1,0 +1,154 @@
+package fr.polytech.model;
+
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+
+public class Tuile extends Observable {
+	private int valeur;
+	private int pos_x;
+	private int pos_y;
+	private int nbAdditions;
+	
+	/**
+	 * @return the pos_x
+	 */
+	public int getPos_x() {
+		return pos_x;
+	}
+	/**
+	 * @param pos_x the pos_x to set
+	 */
+	public void setPos_x(int pos_x) {
+		this.pos_x = pos_x;
+	}
+	/**
+	 * @return the pos_y
+	 */
+	public int getPos_y() {
+		return pos_y;
+	}
+	/**
+	 * @param pos_y the pos_y to set
+	 */
+	public void setPos_y(int pos_y) {
+		this.pos_y = pos_y;
+	}
+	public Tuile(){
+		this.setValeur(0);
+	}
+	public Tuile(int x, int y){
+		this.setValeur(0);
+		this.setPos_x(x);
+		this.setPos_y(y);
+	}
+	
+	public Tuile(int val,int x, int y){
+		this.setValeur(val);
+		this.setPos_x(x);
+		this.setPos_y(y);
+	}
+	/**
+	 * @return the valeur
+	 */
+	public int getValeur() {
+		return valeur;
+	}
+
+	/**
+	 * @param valeur the numero to set
+	 */
+	public void setValeur(int valeur) {
+		this.valeur = valeur;
+	}
+	
+	public int getnbAdditions(){
+		return nbAdditions;
+	}
+	
+	public void setnbAdditions(int valeur){
+		this.nbAdditions = valeur;
+	}
+	
+	public boolean deplacer(Grille g, int x, int y){
+		/*si on est sur un bord*/
+		if((x <= 0 || x > g.getTaille_x()) || (y <= 0 || y > g.getTaille_y())){
+			return false;
+		}
+		boolean trouve = false;
+		for(Tuile t : g.getGrille()){
+			trouve = false;
+			/*s'il y a déjà une tuile à cette position x,y*/
+	
+			//System.out.println(" posx "+t.getPos_x()+" xdonne"+x+" posy "+t.getPos_y()+" ydonne "+ y);
+			if((t.getPos_x() == x) && (t.getPos_y() == y)){
+				trouve = true;
+				/*si les valeurs des tuiles sont identiques, on les additionne,
+				 * puis on supprime l'ancienne de l'arraylist de la grille*/
+				//System.out.println("hello");
+				if (t.valeur == 0 || (t.valeur == 2 && this.valeur == 1) || (this.valeur == 2 && t.valeur == 1 ) || ( t.valeur == this.valeur && (t.valeur != 1 && t.valeur !=2))){
+					System.out.println("v1 =" + t.valeur +" v2 = "+ this.valeur);
+					t.valeur += this.valeur;
+					this.valeur = 0;
+					//System.out.println("coucou");
+					setChanged();
+					notifyObservers(); // ont notifie la vue
+					System.out.println(this);
+					return true;
+					
+				}else{
+					return false;
+				}
+				
+			}
+		}
+		
+		return true;		
+	}
+	
+	public boolean is_possible_mouve(Grille g){
+		
+		int x = this.getPos_x();
+		int y = this.getPos_y();
+		
+		for (Tuile t: g.getGrille()){
+			// test de case du haut
+			
+			if (t.pos_x == x 
+				&& t.pos_y == y+1 
+				&& ((t.valeur == this.valeur && t.valeur != 1 && t.valeur != 2)
+				|| (t.valeur ==1 && this.valeur == 2)
+				|| (t.valeur == 2 && this.valeur == 1))){return true;}
+			// test de case du bas
+			if (t.pos_x == x 
+				&& t.pos_y == y-1 
+				&& ((t.valeur == this.valeur && t.valeur != 1 && t.valeur != 2)
+				|| (t.valeur ==1 && this.valeur == 2)
+				|| (t.valeur == 2 && this.valeur == 1))){return true;}
+			// test de case du gauche
+			if (t.pos_x == x-1 
+				&& t.pos_y == y 
+				&& ((t.valeur == this.valeur && t.valeur != 1 && t.valeur != 2)
+				|| (t.valeur ==1 && this.valeur == 2)
+				|| (t.valeur == 2 && this.valeur == 1))){return true;}
+			// test de case du droit
+			if (t.pos_x == x+1
+				&& t.pos_y == y 
+				&& ((t.valeur == this.valeur && t.valeur != 1 && t.valeur != 2)
+				|| (t.valeur ==1 && this.valeur == 2)
+				|| (t.valeur == 2 && this.valeur == 1))){return true;}
+		}
+		return false;
+		
+	}
+	@Override
+	public String toString() {
+		return "Tuile [valeur=" + valeur + ", pos_x=" + pos_x + ", pos_y=" + pos_y + "]";
+	}
+	
+	
+
+	
+	
+
+}

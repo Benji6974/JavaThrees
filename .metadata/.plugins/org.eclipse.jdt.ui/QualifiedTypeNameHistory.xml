@@ -3,8 +3,15 @@
 <fullyQualifiedTypeName name="fr.polytech.vue.ThreesVue"/>
 <fullyQualifiedTypeName name="fr.polytech.controler.ThreesControler"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="fr.polytech.model.Grille"/>
 <fullyQualifiedTypeName name="fr.polytech.model.Tuile"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="java.util.Observer"/>
+<fullyQualifiedTypeName name="java.awt.Point"/>
+<fullyQualifiedTypeName name="javax.swing.border.Border"/>
+<fullyQualifiedTypeName name="javax.swing.border.BevelBorder"/>
+<fullyQualifiedTypeName name="javax.swing.BorderFactory"/>
+<fullyQualifiedTypeName name="javax.swing.border.AbstractBorder"/>
+<fullyQualifiedTypeName name="javax.swing.border.SoftBevelBorder"/>
+<fullyQualifiedTypeName name="fr.polytech.model.Grille"/>
+<fullyQualifiedTypeName name="javax.swing.JButton"/>
 </qualifiedTypeNameHistroy>
